@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { IOrder } from 'src/app/interfaces/Order.interface';
+import { OrdersService } from 'src/app/services/orders.service';
 interface IStats{
   value: string;
   viewValue: string;
@@ -24,6 +25,7 @@ export class DialogOrdersComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: IOrder ,
     private dialogRef: MatDialogRef<DialogOrdersComponent>, 
+    private orderService: OrdersService
     ) {}
 
   ngOnInit(): void {
@@ -33,12 +35,13 @@ export class DialogOrdersComponent implements OnInit {
       price: new FormControl(''),
       obs: new FormControl(''),
       status: new FormGroup(''),
-      type: new FormControl('')
     })
   }
 
   handleSubmit(){
-    console.log(this.formOrders.value);
+    return this.orderService.createOrder(this.formOrders.value).subscribe(() => {
+      console.log("Adicionado")
+    })
   }
   closeDialog(){
     this.dialogRef.close();

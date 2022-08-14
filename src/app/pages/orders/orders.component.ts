@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatTableDataSource } from '@angular/material/table';
 import { IOrder } from 'src/app/interfaces/Order.interface';
 import { OrdersService } from 'src/app/services/orders.service';
 import { DialogOrdersComponent } from 'src/app/shared/dialog-orders/dialog-orders.component';
@@ -10,7 +11,7 @@ import { DialogOrdersComponent } from 'src/app/shared/dialog-orders/dialog-order
   styleUrls: ['./orders.component.css']
 })
 export class OrdersComponent implements OnInit {
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol', 'editar/excluir'];
+  displayedColumns: string[] = ['order', 'extra', 'price', 'obs', 'status' ,'editar/excluir'];
   dataSource: any[] = [
     {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
     {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
@@ -23,19 +24,28 @@ export class OrdersComponent implements OnInit {
     {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
     {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
   ];
-  orderData!: IOrder[]
+  orderData: IOrder[] = []
   constructor(private orderService: OrdersService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.orderService.getAllOrders().subscribe((res) => {
-      this.orderData = res
+    this.orderService.getAllOrders().subscribe((res: any) => {
+      this.orderData = res.result
       console.log(this.orderData)
     });
   }
-  openDialog():void {
+  openDialog(order: IOrder | null):void {
     this.dialog.open(DialogOrdersComponent, {
       width: '350px',
+      data: order === null ?{
+        order: '',
+        extra: '',
+        price: 0,
+        obs: '',
+        status: '',
+      }: order
     })
   }
+
+  
 
 }
