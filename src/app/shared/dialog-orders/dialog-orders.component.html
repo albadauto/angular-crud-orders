@@ -1,0 +1,51 @@
+<form [formGroup]="formOrders" (ngSubmit)="handleSubmit()" #frmInitial="ngForm">
+    <div class="text-center">
+        <h3>Registre um novo pedido</h3>
+    </div>
+    <div mat-dialog-content>
+    <div class="row">
+        <div class="col">
+            <mat-form-field appearance="fill" class="input-main" >
+                <mat-label>Nome do pedido</mat-label>
+                <input matInput placeholder="Pizza com coca" formControlName="order" >
+               </mat-form-field>
+        </div>
+        <div class="col">
+            <mat-form-field appearance="fill" class="input-main">
+                <mat-label>Extra</mat-label>
+                <input matInput  placeholder="Ex: Sem cebola" required formControlName="extra">
+               </mat-form-field>
+        </div>
+        <div class="col">
+            <mat-form-field appearance="fill" class="input-main">
+                <mat-label>Valor total</mat-label>
+                <input matInput placeholder="Ex: R$ 54,00" required type="number" formControlName="price">
+               </mat-form-field>
+        </div>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Status do pedido</mat-label>
+            <mat-select>
+              <mat-option *ngFor="let stat of status" [value]="stat.value">
+                {{stat.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        <div class="col">
+            <mat-form-field class="example-full-width" appearance="fill" class="input-main" formControlName="obs">
+                <mat-label>Observações</mat-label>
+                <textarea matInput placeholder="Ex: Mora na rua tal tal tal"></textarea>
+              </mat-form-field>
+        </div>
+    </div>
+    </div>
+    <div class="row">
+        <div class="col text-center">
+            <button mat-raised-button color="primary">Enviar</button>
+        </div>
+        <div class="col text-center">
+            <button mat-raised-button (click)="closeDialog()">Fechar</button>
+        </div>
+    </div>
+   
+</form>
