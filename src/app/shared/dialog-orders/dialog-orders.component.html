@@ -1,4 +1,4 @@
-<form [formGroup]="formOrders" (ngSubmit)="handleSubmit()" #frmInitial="ngForm">
+<form [formGroup]="formOrders" (ngSubmit)="isUpdated ? handleUpdate() : handleSubmit()" #frmInitial="ngForm">
     <div class="text-center">
         <h3>Registre um novo pedido</h3>
     </div>
@@ -6,35 +6,36 @@
     <div class="row">
         <div class="col">
             <mat-form-field appearance="fill" class="input-main" >
+                <input type="hidden" formControlName="id_order" [(ngModel)]="data.id_order">
                 <mat-label>Nome do pedido</mat-label>
-                <input matInput placeholder="Pizza com coca" formControlName="order" >
+                <input matInput placeholder="Pizza com coca" formControlName="order" [(ngModel)]="data.order">
                </mat-form-field>
         </div>
         <div class="col">
             <mat-form-field appearance="fill" class="input-main">
                 <mat-label>Extra</mat-label>
-                <input matInput  placeholder="Ex: Sem cebola" required formControlName="extra">
+                <input matInput  placeholder="Ex: Sem cebola" required formControlName="extra" [(ngModel)]="data.extra">
                </mat-form-field>
         </div>
         <div class="col">
             <mat-form-field appearance="fill" class="input-main">
                 <mat-label>Valor total</mat-label>
-                <input matInput placeholder="Ex: R$ 54,00" required type="number" formControlName="price">
+                <input matInput placeholder="Ex: R$ 54,00" required type="number" formControlName="price" [(ngModel)]="data.price">
                </mat-form-field>
         </div>
 
         <mat-form-field appearance="fill">
             <mat-label>Status do pedido</mat-label>
-            <mat-select>
+            <mat-select formControlName="status" [(ngModel)]="data.status">
               <mat-option *ngFor="let stat of status" [value]="stat.value">
                 {{stat.viewValue}}
               </mat-option>
             </mat-select>
           </mat-form-field>
         <div class="col">
-            <mat-form-field class="example-full-width" appearance="fill" class="input-main" formControlName="obs">
+            <mat-form-field class="example-full-width" appearance="fill" class="input-main" formControlName="obs" >
                 <mat-label>Observações</mat-label>
-                <textarea matInput placeholder="Ex: Mora na rua tal tal tal" formControlName="obs"></textarea>
+                <textarea matInput placeholder="Ex: Mora na rua tal tal tal" formControlName="obs" [(ngModel)]="data.obs"></textarea>
               </mat-form-field>
         </div>
     </div>
@@ -44,7 +45,7 @@
             <button mat-raised-button color="primary">Enviar</button>
         </div>
         <div class="col text-center">
-            <button mat-raised-button (click)="closeDialog()">Fechar</button>
+            <a mat-raised-button (click)="closeDialog()">Fechar</a>
         </div>
     </div>
    

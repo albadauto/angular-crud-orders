@@ -43,11 +43,11 @@
     <ng-container matColumnDef="editar/excluir">
       <th mat-header-cell *matHeaderCellDef> Excluir/Editar </th>
       <td mat-cell *matCellDef="let order">
-        <button mat-icon-button color="primary">
+        <button mat-icon-button color="primary" (click)="edit(order)">
           <mat-icon>edit</mat-icon>
 
         </button>
-        <button mat-icon-button color="primary">
+        <button mat-icon-button color="primary" (click)="deleteOrder(order.id_order)">
           <mat-icon>delete</mat-icon>
 
         </button>

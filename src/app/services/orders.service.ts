@@ -16,8 +16,15 @@ export class OrdersService {
     return this.http.get<IOrder[]>(this.apiURLOrder);
   }
   
-
   createOrder(order: IOrder): Observable<IOrder>{
     return this.http.post<IOrder>(`${this.apiURLOrder}`, order);
+  }
+
+  deleteOrder(id: number): Observable<IOrder>{
+    return this.http.delete<IOrder>(`${this.apiURLOrder}/${id}`);
+  }
+
+  updateOrder(id: number, order: IOrder): Observable<IOrder>{
+    return this.http.put<IOrder>(`${this.apiURLOrder}/${id}`, order);
   }
 }
